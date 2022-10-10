@@ -1,0 +1,48 @@
+swagger: '2.0'
+info:
+  title: CSV Convertor
+  description: This API will save the world!
+
+  version: "1.0"
+
+  license:
+    name: BeezUP
+    url: https://www.beezup.com
+
+host: api.beezup.com
+
+
+paths:
+  '/convertor':
+    get:
+      produces:
+      - application/json
+      - text/xml
+      operationId: Convert
+      summary: Convert the CSV file into JSON or XML
+      parameters:
+        - name: csvUri
+          in: query
+          type: string
+          required: true
+        - name: toFileType
+          in: query
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: The transformation result
+          schema:
+            type: array
+            items:
+              type: object
+              additionalProperties: 
+                type: object
+        400:
+          description: The CSV is badly formatted
+          schema:
+            type: string
+        default:
+          description: Internal server error
+          schema:
+            type: string
